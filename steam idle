@@ -1,0 +1,18 @@
+const SteamUser = require('steam-user');
+const SteamTotp = require('steam-totp');
+
+const user = new SteamUser();
+
+const logOnOptions = {
+	accountName: 'username',
+	password: 'password',
+	twoFactorCode:SteamTotp.generateAuthCode ('sharedsecret')
+}
+
+user.logOn(logOnOptions);
+
+user.on('loggedOn', () => {
+	console.log(logOnOptions.accountName + 'was successfully logged in');
+	user.setPersona(2);
+	user.gamesPlayed(304050);
+});
